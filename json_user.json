@@ -1,0 +1,1 @@
+"\n{\n  \"name\": \"Иван\",\n  \"age\": 30,\n  \"is_student\": false,\n  \"courses\": [\n    \"Python\",\n    \"QA Automation\",\n    \"Api Testing\"\n  ],\n  \"address\": {\n    \"city\": \"Moscow\",\n    \"zip\": \"10100\"\n  }\n}\n"
