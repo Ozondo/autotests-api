@@ -13,6 +13,23 @@ class CreateFileRequestDict(TypedDict):
     directory: str
     upload_file: str
 
+class File(TypedDict):
+    """
+    Описание структуры файла.
+    """
+    id: str
+    filename: str
+    directory: str
+    url: str
+
+class FileResponseDict(TypedDict):
+    """
+    Описание структуры ответа создания файла.
+    """
+    file: File
+
+
+# noinspection PyArgumentList
 class FilesClient(APIClient):
     """
     Клиент для работы с /api/v1/files
@@ -47,6 +64,15 @@ class FilesClient(APIClient):
         :return: Ответ от сервера в виде объекта httpx.Response
         """
         return self.delete(url=f'/api/v1/files/{file_id}')
+
+    def create_file(self, request: CreateFileRequestDict) -> FileResponseDict:
+        """
+        Метод создания файла в формате json
+
+        :param request: Словарь с filename, directory, upload_file.
+        :return: Ответ от сервера в виде объекта httpx.Response
+        """
+        return self.create_file_api(request).json()
 
 
 def get_files_client(user: AuthentificationTypedDict) -> FilesClient:
