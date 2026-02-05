@@ -1,4 +1,4 @@
-from api_client_get_user import get_public_users_client
+from clients.users.public_users_client import get_public_users_client
 from clients.files.files_client import get_files_client, CreateFileRequestDict
 from clients.courses.courses_client import get_course_client, CreateCourseRequestDict
 from clients.private_http_builder import AuthentificationTypedDict

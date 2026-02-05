@@ -2,12 +2,14 @@ from httpx import Client, URL, QueryParams, Response
 from typing import Any
 from httpx._types import RequestData, RequestFiles
 
+
 class APIClient:
     """
     Базовый API клиент, принимающий объект httpx.Client.
 
     :param client: экземпляр httpx.Client для выполнения HTTP-запросов
     """
+
     def __init__(self, client: Client):
         self.client = client
 
@@ -28,7 +30,8 @@ class APIClient:
 
     def post(
             self, url: URL | str,
-            json: Any,
+            # Не дает без этого запустить ручки с data
+            json: Any | None = None,
             data: RequestData | None = None,
             files: RequestFiles | None = None
     ) -> Response:
