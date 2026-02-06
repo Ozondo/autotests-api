@@ -107,7 +107,7 @@ class ExercisesClient(APIClient):
         :param query: Словарь с courseId.
         :return: Ответ от сервера в виде объекта json
         """
-        return self.get(url='/api/v1/exercises', params=query).json()
+        return self.get_exercises_api(query=query).json()
 
     def get_exercise(self, exercise_id: str) -> ExercisesResponseDict:
         """
@@ -116,7 +116,7 @@ class ExercisesClient(APIClient):
         :param exercise_id: Идентификатор упражнения.
         :return: Ответ от сервера в виде объекта json
         """
-        return self.get(url=f'/api/v1/exercises/{exercise_id}').json()
+        return self.get_exercise_api(exercise_id=exercise_id).json()
 
     def create_exercise(self, request: CreateExerciseRequestDict) -> ExercisesResponseDict:
         """
@@ -125,7 +125,7 @@ class ExercisesClient(APIClient):
         :param request: Данные для создания упражнения
         :return: Ответ от сервера в виде объекта json
         """
-        return self.post(url='/api/v1/exercises', json=request).json()
+        return self.create_exercise_api(request=request).json()
 
     def update_exercise(self, request: UpdateExerciseRequestDict, exercise_id: str) -> ExercisesResponseDict:
         """
@@ -135,7 +135,7 @@ class ExercisesClient(APIClient):
         :param request: Словарь с обновленными данными для упражнения
         :return: Ответ от сервера в виде объекта в json
         """
-        return self.patch(url=f'/api/v1/exercises/{exercise_id}', json=request).json()
+        return self.update_exercise_api(exercise_id=exercise_id, request=request).json()
 
 def get_exercises_client(user: AuthentificationTypedDict) -> ExercisesClient:
     """
