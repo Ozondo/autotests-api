@@ -1,8 +1,11 @@
 import pytest
 
+from clients.users.private_users_client import PrivateUsersClient
 from clients.users.public_users_client import PublicUsersClient
 from clients.users.public_users_client import CreateUserRequestSchema, CreateUserResponseSchema
-from tools.assertions.users import assert_create_users_response
+from clients.users.users_schema import GetUserResponseSchema
+from tests.conftest import UserFixture
+from tools.assertions.users import assert_create_users_response, assert_get_user_response
 
 from tools.assertions.base import assert_status_code
 from tools.assertions.schema import validate_json_schema
@@ -21,3 +24,21 @@ def test_create_user(public_users_client: PublicUsersClient):
     assert_create_users_response(request, response_data)
 
     validate_json_schema(response.json(), response_data.model_json_schema())
+
+
+@pytest.mark.users
+@pytest.mark.regression
+def test_get_user_me(private_users_client: PrivateUsersClient, function_user: UserFixture):
+    response = private_users_client.get_user_me_api()
+
+    assert_status_code(
+        actual=response.status_code,
+        expected=HTTPStatus.OK
+    )
+
+    assert_get_user_response(
+        get_user_response=GetUserResponseSchema.model_validate_json(response.text),
+        create_user_response=function_user.response
+    )
+
+    validate_json_schema(response.json(), function_user.response.model_json_schema())
