@@ -60,3 +60,9 @@ class GetExerciseResponseSchema(BaseModel):
     Описание структуры запроса для получения упражнения.
     """
     exercise: ExerciseSchema
+
+class GetExercisesResponseSchema(BaseModel):
+    """
+    Описание структуры ответа на получение списка упражнений.
+    """
+    exercises: list[ExerciseSchema]
